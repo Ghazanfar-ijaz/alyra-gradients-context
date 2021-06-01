@@ -1,21 +1,34 @@
-import Gradients from "./components/Gradients"
-import GradientsHeader from "./components/GradientsHeader"
-import Footer from "./components/Footer"
 
-function App() {
-  return (
-    <div className="App min-vh-100 d-flex flex-column">
-      <GradientsHeader>
-        <h1 className="display-1">Alyra Gradients</h1>
-        <p className="tagline">Ultime collection de plus beaux dégradés</p>
-      </GradientsHeader>
-      <main className="container">
-        <h1 className="text-center my-4">Alyra Gradients</h1>
-        <Gradients />
-      </main>
-      <Footer />
-    </div>
-  )
+export const gradientsReducer = (state, action) => {
+  // FETCH_INIT, FETCH_SUCCESS, FETCH_FAILURE
+  switch (action.type) {
+    case "FETCH_INIT":
+      return {
+        ...state,
+        loading: true,
+      }
+    case "FETCH_SUCCESS":
+      return {
+        ...state,
+        loading: false,
+        error: "",
+        gradients: action.payload,
+      }
+    case "FETCH_FAILURE":
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      }
+      case "FETCH_PAGE":
+        return {
+          ...state,
+          page: state.page + 1,
+        }
+
+    default:
+      throw new Error(`Unsupported action type ${action.type} in gradientsReducer`)
+  }
 }
 
-export default App
+export default gradientsReducer

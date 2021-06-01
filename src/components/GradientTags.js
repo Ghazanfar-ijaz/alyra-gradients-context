@@ -1,6 +1,11 @@
+import {useContext} from "react"
 import GradientTagButton from "./GradientTagButton"
+import {FilterContext} from "./../context/FilterContext"
 
 const GradientTags = ({ tags, filter, setFilter }) => {
+
+  const { filter, setFilter } = useContext(FilterContext)
+
   return (
     <div className="mt-3">
       {tags.sort().map((el) => {
